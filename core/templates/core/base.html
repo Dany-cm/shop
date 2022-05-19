@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load tailwindcss %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dany TGC</title>
+</head>
+
+<body>
+    {% tailwindcss %}
+    <nav class="border-b border-gray-800">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between py-6">
+            <ul class="flex flex-col md:flex-row items-center">
+                <li>
+                    <a href="/" class="font-semibold text-xl tracking-tight text-black- no-underline">
+                        Dany TGC
+                    </a>
+                </li>
+                <li class="md:ml-16 mt-3 md:mt-0">
+                    <a href="" class="hover:text-blue-500">Accueil</a>
+                </li>
+                <li class="md:ml-6 mt-3 md:mt-0">
+                    <a href="" class="hover:text-blue-500">Catégories</a>
+                </li>
+            </ul>
+            <div class="flex flex-col md:flex-row items-center">
+                <a href="#" class="bg-sky-600 rounded-full px-4 py-2 text-sm font-semibold text-gray-100 mr-4">
+                    S'enregistrer
+                </a>
+                <a href="#" class="bg-sky-600 rounded-full px-4 py-2 text-sm font-semibold text-gray-100">
+                    Se connecter
+                </a>
+            </div>
+        </div>
+    <footer class="bg-gray-100">
+        <div class="max-w-6xl mx-auto py-10 px-6 xl:px-0 md:flex justify-content">
+            <div class="footer-left mb-12 md:mb-0">
+                <h2 class="mb-5 uppercase text-lg">à propros de nous</h2>
+                <p class="text-gray-700">Un test</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
