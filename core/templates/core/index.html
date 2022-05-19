@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<header class="px-6 py-10 lg:py-20 bg-blue-500">
+    <div class="max-w-3xl mx-auto text-center">
+        <p class="mb-2 text-3xl lg:text-5xl text-white">Bienvenue sur Dany TGC</p>
+        <p class="mb-10 text-white">Une boutique consacrée à Magic: The Gathering et ses accessoires</p>
+        <a href="{% url 'shop' %}" class="inline-block px-8 py-4 rounded-xl bg-white text-blue-500 hover:bg-gray-200">Visiter la boutique</a>
+    </div>
+</header>
+
+<p class="mt-10 mb-10 text-center text-3xl">Nos produits en vedette</p>
+
+<!-- <div class="max-w-7xl mx-auto py-2 px-6 xl:px-0">
+    <div class="products flex items-center flex-wrap gap-4"> -->
+<div class="max-w-5xl mx-auto py-auto">
+    <div class="products flex items-center flex-wrap gap-4">
+        {% for product in products %}
+            {% include 'product/partials/product_list_items.html' %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

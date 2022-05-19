@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="max-w-lg mx-auto flex flex-wrap p-6">
+    <div class="w-full bg-gray-100 p-6 rounded-xl">
+        <h1 class="mb-6 text-2xl">Se connecter</h1>
+
+        <form method="post" action=".">
+            <div>
+                <input type="email"
+                    class="mb-6 form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    id="exampleFormControlInput2" placeholder="Adresse email" />
+            </div>
+            <div>
+                <input type="password"
+                    class="mb-6 form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    id="exampleFormControlInput2" placeholder="Mot de passe" />
+            </div>
+            <div class="p-6 bg-red-200 text-red-600 rounded-xl">
+                <p>Erreur: {{ error }}</p>
+            </div>
+            <div class="p-2 flex flex-col justify-center">
+                <button type="submit"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ">
+                    S'enregister
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

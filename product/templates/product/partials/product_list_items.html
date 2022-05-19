@@ -1,0 +1,12 @@
+<div class="box-border h-52 w-52 p-4 border-0 shadow-lg">
+    <a href="{% url 'product' product.slug %}">
+        <img src="{{ product.get_thumbnail }}" alt="logo" class="rounded-xl hover:shadow-lg">
+    </a>
+    <div class="flex flex-col flex-wrap justify-between">
+        <a href="{% url 'product' product.slug %}" class="text-gray-700 text-sm">{{ product.name }}</a>
+        <a href="{% url 'product' product.slug %}" class="text-gray-700 text-sm">{{ product.price }} €</a>
+        <a href src="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+            Ajouté au panier
+        </a>
+    </div>
+</div>
