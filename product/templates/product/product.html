@@ -1,10 +1,18 @@
 {% extends 'core/base.html' %}
 
+{% block title %} - {{ product.name }} {% endblock %}
+
+{% load static %}
 {% block content %}
 
 <div class="max-w-6xl mx-auto flex flex-wrap py-6 px-6 xl:px-0">
     <div class="images w-full mb-6 lg:mb-0 lg:w-3/5">
-        <img class="rounded-xl hover:shadow-xl" src="" alt="">
+        {% if product.image %}
+            <img class="rounded-xl hover:shadow-xl" src="{{ product.image.url }}" alt="">
+        {% else %}
+            <img class="rounded-xl hover:shadow-xl" src="{% static 'images/preview.png' %}" alt="">
+        {% endif %}
+
     </div>
 
     <div class="details w-full lg:w-2/5">

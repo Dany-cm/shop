@@ -27,8 +27,8 @@ class Products(models.Model):
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=19, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to="uploads/", blank=True)
-    thumbnail = models.ImageField(upload_to="uploads/", blank=True)
+    image = models.ImageField(upload_to="cartes/", blank=True, null=True)
+    thumbnail = models.ImageField(upload_to="thumbnail/", blank=True)
 
     class Meta:
         ordering = ("-created_at",)
@@ -47,9 +47,9 @@ class Products(models.Model):
 
                 return self.thumbnail.url
             else:
-                return "https://via.placeholder.com/240x240.png"
+                return "/static/images/preview.png"
 
-    def make_thumbnail(self, image, size=(300, 300)):
+    def make_thumbnail(self, image, size=(240, 240)):
         img = Image.open(image)
         img.convert("RGB")
         img.thumbnail(size)
