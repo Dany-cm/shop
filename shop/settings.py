@@ -10,24 +10,31 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import environ
 import os
 from pathlib import Path
-from telnetlib import LOGOUT
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-+jx&ve_xbq!^u^^lpr17w=ae4n-x08e$*20g0*1r^d)6m8^4tt"
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 # Application definition
@@ -42,6 +49,8 @@ INSTALLED_APPS = [
     "core",
     "product",
     "cart",
+    "order",
+    "account",
     "tailwindcss",
 ]
 
@@ -110,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "fr-FR"
 
 TIME_ZONE = "UTC"
 
@@ -146,5 +155,9 @@ TAILWINDCSS_OUTPUT_FILE = "style.css"
 SESSION_COOKIE_AGE = 86400
 CART_SESSION_ID = "cart"
 
-LOGOUT_REDIRECT_URL = "/"
-LOGIN_REDIRECT_URL = "/"
+STRIPE_API_KEY_PUBLISHABLE = env('STRIPE_API_KEY_PUBLISHABLE')
+STRIPE_API_KEY_HIDDEN = env('STRIPE_API_KEY_HIDDEN')
+
+LOGOUT_REDIRECT_URL = "index"
+LOGIN_REDIRECT_URL = "index"
+LOGIN_URL = "login"

@@ -22,12 +22,12 @@
                     <li><a href="{% url 'shop' %}">Boutique</a></li>
 
                     {% if request.user.is_authenticated %}
-                        <li><a href="{% url 'logout' %}">Déconnexion</a></li>
+                    <li><a href="{% url 'logout' %}">Déconnexion</a></li>
                     {% endif %}
                 </ul>
             </div>
             <div class="menu-right flex items-center space-x-4">
-                <a href="{% url 'login' %}">
+                <a href="{% url 'account' %}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -35,7 +35,9 @@
                     </svg>
                 </a>
 
-                {% include 'cart/cart_menu.html' %}
+                <div hx-get="{% url 'hx_cart_menu' %}" hx-trigger="update-cart-menu from:body" hx-swap="innerHTML">
+                    {% include 'cart/cart_menu.html' %}
+                </div>
             </div>
         </div>
     </nav>
@@ -52,6 +54,8 @@
         </div>
     </footer>
     <script src="{% static 'js/htmx.min.js' %}"></script>
+    {% block scripts  %}
+    {% endblock %}
 </body>
 
 </html>

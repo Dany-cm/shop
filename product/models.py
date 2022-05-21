@@ -25,7 +25,7 @@ class Products(models.Model):
     name = models.CharField(max_length=150)
     slug = models.SlugField()
     description = models.TextField(blank=True, null=True)
-    price = models.DecimalField(max_digits=19, decimal_places=2)
+    price = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to="cartes/", blank=True, null=True)
     thumbnail = models.ImageField(upload_to="thumbnail/", blank=True)
@@ -36,6 +36,9 @@ class Products(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def get_display_price(self):
+        return self.price / 100
 
     def get_thumbnail(self):
         if self.thumbnail:
