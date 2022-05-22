@@ -3,7 +3,7 @@
         <a href="{% url 'product' product.slug %}" class="text-gray-700  text-center text-sm font-bold mb-4">{{ product.name }}</a>
 
         <a href="{% url 'product' product.slug %}">
-            <img src="{{ product.get_thumbnail }}" alt="logo" class="rounded-xl hover:shadow-lg">
+            <img src="{{ product.get_thumbnail }}" alt="logo" class="w-full rounded-xl hover:shadow-lg">
         </a>
         
         <a href="{% url 'product' product.slug %}" class="text-gray-700 text-center text-sm mt-4">{{ product.price }} €</a>

@@ -6,7 +6,7 @@
 <div class="max-w-6xl mx-auto flex flex-wrap items-start py-6 px-6 xl:px-0">
     <div class="products w-full lg:w-3/4">
         <h1 class="mb-5 text-3xl">Mon panier</h1>
-        <div class="w-full pr-6">
+        <div class="w-full md:pr-6">
             <div class="mb-6 p-6 bg-gray-100 rounded-xl">
                 <h2 class="mb-5 uppercase text-lg">Adresse de livraison</h2>
 
@@ -54,13 +54,13 @@
                     <input id="phone" name="phone" type="text" class="w-full p-5 rounded-xl">
                 </div>
             </div>
-            <div class="mb-6 p-6 bg-gray-100 rounded-xl">
+            <div id="errors" class="mb-6 p-6 bg-gray-100 rounded-xl">
                 <h2 class="mb-5 uppercase text-lg">Mode de paiement</h2>
             </div>
         </div>
     </div>
 
-    <div class="summary w-full lg:w-1/4 p-6 bg-gray-100 rounded-xl mt-3">
+    <div class="summary w-full md:w-1/4 p-6 bg-gray-100 rounded-xl mt-3">
         <h2 class="uppercase text-lg font-bold mb-5">Résumé de la commande</h2>
         <div class="mb-6 flex justify-between">
             <span class="font-semibold">Total</span>
@@ -76,6 +76,9 @@
 {% block scripts %}
 <script type="application/javascript" src="https://js.stripe.com/v3/"></script>
 <script>
+    let el = document.querySelector('#errors');
+
+
     function validateForm(data) {
         let errors = []
 
@@ -103,8 +106,20 @@
             errors.push('Zipcode is empty')
         }
 
-        if (data.place === '') {
-            errors.push('Place is empty')
+        if (data.city === '') {
+            errors.push('City is empty')
+        }
+
+        if (errors.length > 0) {
+            let html = '<ul>';
+            
+            errors.forEach(error => {
+                html += '<li>' + error + '</li>';
+            });
+
+            el.innerHTML = html + '</ul>';
+        } else {
+            el.innerHTML = '';
         }
 
         return errors

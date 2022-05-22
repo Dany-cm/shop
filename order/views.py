@@ -19,18 +19,18 @@ def start_order(request):
         product = item["product"]
         total_price += product.price * int(item["quantity"])
 
-        obj = {
-            "price_data": {
-                "currency": "usd",
-                "product_data": {
-                    "name": product.name,
+        items.append(
+            {
+                "price_data": {
+                    "currency": "usd",
+                    "product_data": {
+                        "name": product.name,
+                    },
+                    "unit_amount": product.price,
                 },
-                "unit_amount": product.price,
-            },
-            "quantity": item["quantity"],
-        }
-
-        items.append(obj)
+                "quantity": item["quantity"],
+            }
+        )
 
     stripe.api_key = settings.STRIPE_API_KEY_HIDDEN
     session = stripe.checkout.Session.create(
@@ -42,28 +42,19 @@ def start_order(request):
     )
     payment_intent = session.payment_intent
 
-    first_name = data["first_name"]
-    last_name = data["last_name"]
-    email = data["email"]
-    address = data["address"]
-    zipcode = data["zipcode"]
-    city = data["city"]
-    phone = data["phone"]
-
     order = Order.objects.create(
         user=request.user,
-        first_name=first_name,
-        last_name=last_name,
-        email=email,
-        phone=phone,
-        address=address,
-        zipcode=zipcode,
-        city=city,
+        first_name=data["first_name"],
+        last_name=data["last_name"],
+        email=data["email"],
+        phone=data["phone"],
+        address=data["address"],
+        zipcode=data["zipcode"],
+        city=data["city"],
+        payment_intent=payment_intent,
+        paid=True,
+        paid_amount=total_price,
     )
-    order.payment_intent = payment_intent
-    order.paid_amount = total_price
-    order.paid = True
-    order.save()
 
     for item in cart:
         product = item["product"]
@@ -73,5 +64,7 @@ def start_order(request):
         item = OrderItem.objects.create(
             order=order, product=product, price=price, quantity=quantity
         )
+
+    cart.clear()
 
     return JsonResponse({"session": session, "order": payment_intent})

@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+
+{% block title %} - Succès {% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto flex flex-wrap items-start py-6 px-6 xl:px-0">
+    <div class="products w-full lg:w-3/4">
+        <h1 class="mb-5 text-3xl">Commande validé </h1>
+        <p>Merci </p>
+        <p>Votre commande a été validé avec succès !</p>
+        <p>Vous pouvez vous rendre au <a href="{% url 'account' %}">panier</a> pour consulter vos commandes.</p>
+        <p>Nous vous remercions pour votre confiance.</p>
+    </div>
+</div>
+{% endblock %}

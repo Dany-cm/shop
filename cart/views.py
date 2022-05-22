@@ -9,11 +9,15 @@ from product.models import Products
 def add_to_cart(request, product_id):
     cart = Cart(request)
     cart.add(product_id)
-    return render(request, "cart/cart_menu.html")
+    return render(request, "cart/partials/cart_menu.html")
 
 
 def cart(request):
     return render(request, "cart/cart.html")
+
+
+def success(request):
+    return render(request, "cart/success.html")
 
 
 def update_cart(request, product_id, action):
@@ -44,7 +48,7 @@ def update_cart(request, product_id, action):
     else:
         item = None
 
-    response = render(request, 'cart/partials/cart_item.html', {'item': item})
+    response = render(request, 'cart/partials/cart_item.html', {'item': item })
     response['HX-Trigger'] = 'update-cart-menu'
 
     return response
@@ -57,7 +61,7 @@ def checkout(request):
 
 
 def hx_cart_menu(request):
-    return render(request, "cart/cart_menu.html")
+    return render(request, "cart/partials/cart_menu.html")
 
 
 def hx_cart_total(request):
