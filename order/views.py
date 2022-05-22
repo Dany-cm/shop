@@ -51,10 +51,12 @@ def start_order(request):
         address=data["address"],
         zipcode=data["zipcode"],
         city=data["city"],
-        payment_intent=payment_intent,
         paid=True,
         paid_amount=total_price,
     )
+
+    order.payment_intent = payment_intent
+    order.save()
 
     for item in cart:
         product = item["product"]

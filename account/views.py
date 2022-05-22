@@ -35,3 +35,8 @@ def edit_account(request):
         return redirect("account")
 
     return render(request, "account/edit_account.html")
+
+
+@login_required
+def order_history(request):
+    return render(request, "account/order_history.html")

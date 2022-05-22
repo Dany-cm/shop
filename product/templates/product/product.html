@@ -19,12 +19,14 @@
         <h1 class="text-3xl font-bold mb-2">{{ product.name }}</h1>
 
         {% if product.description %}
-        <p class="mt-6 text-gray-700">
-            {{ product.description }}
+        <p class="mt-6 text-gray-700 mb-2"">
+            Description: {{ product.description }}
         </p>
         {% endif %}
 
-        <p class="text-gray-700 text-sm mb-2">{{ product.price }} €</p>
+        <p class="text-gray-700 text-sm mb-2">Édition: {{ product.edition }}</p>
+        <p class="text-gray-700 text-sm mb-2">Rareté: {{ product.rarity }}</p>
+        <p class="text-gray-700 text-sm mb-2">Prix: {{ product.get_display_price }} €</p>
 
         <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-6 inline-block px-8 py-4 rounded-xl"
             hx-get="{% url 'add_to_cart' product.id %}" hx-target="#cart-menu-button" hx-swap="outerHTML">

@@ -19,12 +19,22 @@ class Category(models.Model):
 
 
 class Products(models.Model):
+    MTG_RARE_CHOICES = (
+        ("C", "Common"),
+        ("U", "Uncommon"),
+        ("R", "Rare"),
+        ("M", "Mythic Rare"),
+        ("L", "Land"),
+    )
+
     category = models.ForeignKey(
         Category, related_name="products", on_delete=models.CASCADE
     )
     name = models.CharField(max_length=150)
     slug = models.SlugField()
     description = models.TextField(blank=True, null=True)
+    edition = models.CharField(max_length=150, blank=True, null=True)
+    rarity = models.CharField(max_length=150, choices=MTG_RARE_CHOICES, default="C")
     price = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to="cartes/", blank=True, null=True)
@@ -36,7 +46,7 @@ class Products(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     def get_display_price(self):
         return self.price / 100
 

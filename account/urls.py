@@ -1,4 +1,4 @@
-from account.views import account, edit_account, signup
+from account.views import account, edit_account, signup, order_history
 from django.contrib.auth import views
 from django.urls import path
 
@@ -10,4 +10,5 @@ urlpatterns = [
     path("logout/", views.LogoutView.as_view(), name="logout"),
     path("", account, name="account"),
     path("edit/", edit_account, name="edit_account"),
+    path("order_history/", order_history, name="order_history"),
 ]
