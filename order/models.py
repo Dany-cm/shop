@@ -25,6 +25,9 @@ class Order(models.Model):
     paid_amount = models.IntegerField(blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=ORDERED)
 
+    def __str__(self):
+        return f"{self.id}"
+
     class Meta:
         ordering = ('-created_at',)
     
@@ -42,7 +45,7 @@ class OrderItem(models.Model):
         Products, related_name="items", on_delete=models.CASCADE
     )
     price = models.IntegerField()
-    quantity = models.IntegerField(default=1)
+    quantity = models.IntegerField()
 
 
     def get_total_price(self):

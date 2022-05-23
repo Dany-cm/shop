@@ -10,20 +10,11 @@
                 <div class="inline-block sm:inline-block md:block px-6 py-4 bg-white rounded shadow-sm">
                     <h3 class="mb-3 text-xl uppercase">Rechercher</h3>
                     <form method="get" action=".">
-                        <div class="flex">
-                            <div class="relative text-gray-600 ">
-                                <span class="absolute right-2 inset-y-0 flex items-center pl-2">
-                                    <button type="submit" class="p-1 focus:outline-none focus:shadow-outline ">
-                                        <svg fill="none" stroke="currentColor" stroke-linecap="round"
-                                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                            class="w-6 h-6">
-                                            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                        </svg>
-                                    </button>
-                                </span>
-                                <input type="search" name="query"
-                                    class="py-2 text-sm text-white rounded-md pl-3 focus:outline-none focus:bg-white border-2"
-                                    placeholder="Nom du produit" autocomplete="on">
+                        <div class="flex justify-center">
+                            <div class="mb-3 xl:w-96">
+                                <input type="search"
+                                    class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                    name="query" placeholder="Nom du produit" />
                             </div>
                         </div>
 

@@ -2,7 +2,9 @@ from django.conf import settings
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
+
 from cart.cart import Cart
+from order.models import Order
 from product.models import Products
 
 
@@ -15,9 +17,12 @@ def add_to_cart(request, product_id):
 def cart(request):
     return render(request, "cart/cart.html")
 
-
+@login_required
 def success(request):
-    return render(request, "cart/success.html")
+    order = Order.objects.filter(user=request.user, paid=True)
+    if order.exists:
+        order = order.first()
+        return render(request, 'cart/success.html', {'order': order})
 
 
 def update_cart(request, product_id, action):

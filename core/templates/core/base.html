@@ -34,10 +34,18 @@
                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                 </a>
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'account' %}">Mon compte</a>
+                {% else %}
+                <a href="{% url 'signup' %}">S'enregistrer</a>
+                <p>|</p>
+                <a href="{% url 'account' %}">Connexion</a>
+                {% endif %}
 
                 <div hx-get="{% url 'hx_cart_menu' %}" hx-trigger="update-cart-menu from:body" hx-swap="innerHTML">
                     {% include 'cart/partials/cart_menu.html' %}
                 </div>
+                <a href="{% url 'cart' %}">Mon panier</a>
             </div>
         </div>
     </nav>
@@ -54,7 +62,7 @@
         </div>
     </footer>
     <script src="{% static 'js/htmx.min.js' %}"></script>
-    {% block scripts  %}
+    {% block scripts %}
     {% endblock %}
 </body>
 
