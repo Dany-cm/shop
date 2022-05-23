@@ -34,7 +34,7 @@ class Products(models.Model):
     slug = models.SlugField()
     description = models.TextField(blank=True, null=True)
     edition = models.CharField(max_length=150, blank=True, null=True)
-    rarity = models.CharField(max_length=150, choices=MTG_RARE_CHOICES, default="C")
+    rarity = models.CharField(max_length=20, choices=MTG_RARE_CHOICES, default="C")
     price = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to="cartes/", blank=True, null=True)

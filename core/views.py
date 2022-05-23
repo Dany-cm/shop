@@ -1,14 +1,10 @@
-from urllib import response
 from django.db.models import Q
-from django.http import JsonResponse
-
 from django.shortcuts import render
-import requests
 from product.models import Category, Products
 
 
 def index(request):
-    return render(request, "core/index.html", {"products": Products.objects.all()[0:8]})
+    return render(request, "core/index.html", {"products": Products.objects.all()[0:6]})
 
 
 def shop(request):
@@ -31,9 +27,3 @@ def shop(request):
         "active_category": active_category,
     }
     return render(request, "core/shop.html", context)
-
-
-def tracking_order(request):
-    response = requests.get('https://api.laposte.fr/suivi/v2/idships/Qwtooa7WbdUMNCMlWTw1MnVqWAorja0sjdVvbP+DW2/g/Qj4ij3cVn3eIr9wsS5h').json()
-    
-    return render(request, "core/tracking-order.html", {"response": response})

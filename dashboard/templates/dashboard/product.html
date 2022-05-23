@@ -1,0 +1,86 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %} - Produit {% endblock %}
+
+{% block content %}
+{% load static %}
+<article class="bg-white rounded shadow-sm border border-gray-200 mb-5">
+    <div class="p-5">
+        <header class="flex justify-between">
+            <h2 class="text-xl font-semibold text-black">
+                Produits
+            </h2>
+        </header>
+        <div>
+            <div class="inline-block sm:inline-block md:block px-6 py-4 bg-white rounded shadow-sm">
+                <h3 class="mb-3 text-xl uppercase text-center font-bold">Rechercher</h3>
+                <form method="get" action=".">
+                    <div class="flex justify-center">
+                        <div class="mb-3 xl:w-96">
+                            <input type="search"
+                                class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                name="query" placeholder="Nom du produit" />
+                        </div>
+                    </div>
+
+                </form>
+                {% for product in page %}
+                <div class="flex justify-between">
+                    <div class="flex items-center">
+                        <div>
+                            <h3 class="text-lg font-semibold text-black">{{ product.name }}</h3>
+                            <p class="text-sm text-gray-600">{{ product.description }}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <h3 class="mr-9 text-lg font-semibold text-black">{{ product.get_display_price }} €</h3>
+                        <a href="{% url 'edit_product' product.id %}" class="text-blue-500 hover:text-blue-700">
+                            <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z" />
+                            </svg>
+                        </a>
+                        <form action="{% url 'delete_product' product.id %}" method="post">
+                            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
+                            <button type="submit" class="text-red-500 hover:text-red-700">
+                                <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path d="M6 2l2-2h4l2 2h4v2H2V2h4zM3 6h14l-1 14H4L3 6zm5 2v10h1V8H8zm3 0v10h1V8h-1z" />
+                                </svg>
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <br>
+
+        {% if page.has_previous %}
+            <a href="?page={{ page.previous_page_number }}">« Page précédente</a>
+
+            {% if page.number > 3 %}
+                <a href="?page=1">1</a>
+            {% endif %}
+
+            {% if page.number > 4 %}
+                <span>...</span>
+            {% endif %}
+        {% endif %}
+
+        {% for num in page.paginator.page_range %}
+            {% if page.number == num %}
+                <a href="?page={{ num }}">{{ num }}</a>
+            {% elif num > page.number|add:'-3' and num < page.number|add:'3' %} <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page.has_next %}
+            {% if page.number < page.paginator.num_pages|add:'-3' %}
+                <span>...</span>
+                <a href="?page={{ page.paginator.num_pages }}">{{ page.paginator.num_pages }}</a>
+            {% elif page.number < page.paginator.num_pages|add:'-2' %} <a href="?page={{ page.paginator.num_pages }}">
+                {{ page.paginator.num_pages }}</a>
+            {% endif %}
+                <a href="?page={{ page.next_page_number }}">Page suivante »</a>
+        {% endif %}
+</article>
+{% endblock %}
