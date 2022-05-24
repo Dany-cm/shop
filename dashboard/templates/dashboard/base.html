@@ -40,7 +40,7 @@
                                 <polyline points="9 22 9 12 15 12 15 22"></polyline>
                             </svg>
                         </span>
-                        <span class="ml-3">Dashboard</span>
+                        <span class="ml-3">Tableau de bord</span>
                     </a>
                 </li>
 
@@ -54,7 +54,7 @@
                                 <path d="M16 10a4 4 0 0 1-8 0"></path>
                             </svg>
                       </span>
-                      <span class="ml-3">Products</span>
+                      <span class="ml-3">Produits</span>
                       <span>
                         <svg class="text-white opacity-50" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"> <path fill="currentColor" d="M7 10l5 5 5-5H7z"/>
                         </svg>
@@ -66,20 +66,26 @@
                     </div>
                   </li>
 
-                <li class="hover:bg-blue-100 relative">
-                    <a href="#"
-                        class="flex px-5 py-3 items-center w-full text-white hover:text-white hover:bg-blue-700">
-                        <span aria-hidden="true">
-                            <svg class="text-white opacity-50" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                  <li class="relative">
+                    <p class="flex px-5 py-3 items-center w-full text-white hover:text-white hover:bg-blue-700">
+                      <span aria-hidden="true">
+                        <svg class="text-white opacity-50" width="22" height="22" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="9" cy="21" r="1"></circle>
-                                <circle cx="20" cy="21" r="1"></circle>
-                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                <line x1="3" y1="6" x2="21" y2="6"></line>
+                                <path d="M16 10a4 4 0 0 1-8 0"></path>
                             </svg>
-                        </span>
-                        <span class="ml-3">Orders</span>
-                    </a>
-                </li>
+                      </span>
+                      <span class="ml-3">Commandes</span>
+                      <span>
+                        <svg class="text-white opacity-50" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"> <path fill="currentColor" d="M7 10l5 5 5-5H7z"/>
+                        </svg>
+                      </span>
+                    </p>
+                    <div class="submenu pb-3">
+                    <a href="{% url 'order' %}" class="pl-14 py-1 block text-white hover:bg-blue-700">Toutes les commandes</a>
+                    </div>
+                  </li>
 
                 <li class="hover:bg-blue-100 relative">
                     <a href="" class="flex px-5 py-3 items-center w-full text-white hover:text-white hover:bg-blue-700">
@@ -95,16 +101,7 @@
                         <span class="ml-3">Customers</span>
                     </a>
                 </li>
-            </ul>
-
-            <hr class="border-blue-600">
-
-            <div class="px-5 my-6">
-                <button
-                    class="inline-block w-full text-left px-4 py-2 text-black bg-yellow-400 border border-transparent rounded-md hover:bg-yellow-500">
-                    Create account <span class="float-right" aria-hidden="true">+</span>
-                </button>
-            </div>
+            </ul>>
         </aside>
 
         <main class="w-full">

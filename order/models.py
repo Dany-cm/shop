@@ -5,11 +5,11 @@ from product.models import Products
 
 
 class Order(models.Model):
-    ORDERED = "ordered"
-    SHIPPED = "shipped"
+    ORDERED = "Commander"
+    SHIPPED = "Envoyer"
     STATUS_CHOICES = (
-        (ORDERED, "Ordered"),
-        (SHIPPED, "Shipped"),
+        (ORDERED, "Commander"),
+        (SHIPPED, "Envoyer"),
     )
 
     user = models.ForeignKey(User, related_name="orders", on_delete=models.CASCADE)

@@ -1,14 +1,13 @@
 {% extends 'dashboard/base.html' %}
 
-{% block title %} - Produit {% endblock %}
+{% block title %} - Commande {% endblock %}
 
 {% block content %}
-{% load static %}
 <article class="bg-white rounded shadow-sm border border-gray-200 mb-5">
     <div class="p-5">
         <header class="flex justify-between">
             <h2 class="text-xl font-semibold text-black">
-                Produits
+                Commandes
             </h2>
         </header>
         <div>
@@ -24,28 +23,23 @@
                     </div>
 
                 </form>
-                {% for product in page %}
+                {% for order in orders %}
                 <div class="flex justify-between">
                     <div class="flex items-center">
                         <div>
-                            <h3 class="text-lg font-semibold text-black">{{ product.name }}</h3>
-                            <p class="text-sm text-gray-600">{{ product.description }}</p>
+                            <h3 class="text-lg font-semibold text-black">Commande n°{{ order.id }} - utilisateur: {{order.user.username}}({{order.first_name}} {{order.last_name}})</h3>
+                            <p class="text-sm text-gray-600">Commandé le: {{ order.created_at }}</p>
                         </div>
                     </div>
                     <div class="flex items-center">
-                        <h3 class="mr-9 text-lg font-semibold text-black">{{ product.get_display_price }} €</h3>
-                        <a href="{% url 'edit_product' product.id %}" class="text-blue-500 hover:text-blue-700">
+                        <h3 class="mr-9 text-lg font-semibold text-black">Status: {{ order.status }}</h3>
+                        <p class="mr-9 text-lg font-semibold text-black">Prix: {{ order.get_total_price }} €</p>
+                        <p class="mr-9 text-lg font-semibold text-black">Payé: {{ order.paid|yesno:"Oui, Non" }}</p>
+                        <a href="{% url 'edit_order' order.id %}" class="text-blue-500 hover:text-blue-700">
                             <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                 <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z" />
                             </svg>
                         </a>
-                        <form action="{% url 'delete_product' product.id %}" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
-                            <button type="submit" class="text-red-500 hover:text-red-700">
-                                <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path d="M6 2l2-2h4l2 2h4v2H2V2h4zM3 6h14l-1 14H4L3 6zm5 2v10h1V8H8zm3 0v10h1V8h-1z" />
-                                </svg>
-                        </button>
                     </div>
                 </div>
                 {% endfor %}
@@ -53,7 +47,6 @@
         </div>
 
         <br>
-
         {% include 'dashboard/partials/pagination.html' %}
 </article>
 {% endblock %}

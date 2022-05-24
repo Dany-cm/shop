@@ -1,0 +1,47 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %} - Commande n° {{order.id}} {% endblock %}
+{% block content %}
+<article class="bg-white rounded shadow-sm border border-gray-200 p-4 lg:p-6 my-5">
+
+    <h2 class="mb-3 text-xl md:text-2xl font-semibold text-black">
+        Modifier une commande
+    </h2>
+
+    <form method="POST" action="{% url 'edit_order' order.id %}" enctype='multipart/form-data'>
+        {% csrf_token %}
+
+        <div class="mb-4">
+            <label class="block mb-1">Status de la commande</label>
+            <select value="{{ order.status }}" name="order_status"
+                class="block appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-3/5">
+                {% for key, value in status %}
+                <option value="{{ key }}"
+                    {% if key == order.status %} selected {% endif %}>
+                    {{ value }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- errors -->
+        {% if errors %}
+        <div class="mb-4">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Erreur</strong>
+                <span class="block sm:inline">{{ errors }}</span>
+            </div>
+        </div>
+        {% endif %}
+
+        <button type="submit" name="product_button"
+            class="my-2 px-4 py-2 text-center inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700">
+            Modifier</button>
+
+        <a href="#"
+            class="px-4 py-2 inline-block text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:text-blue-600">
+            Revenir en arrière </a>
+
+    </form>
+</article>
+{% endblock %}

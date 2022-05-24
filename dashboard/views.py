@@ -2,12 +2,18 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.defaultfilters import slugify
+from order.models import Order
 from product.models import Category, Products
 
 
 @staff_member_required()
 def dashboard(request):
-    return render(request, "dashboard/dashboard.html")
+    return render(
+        request,
+        "dashboard/dashboard.html",
+        {"orders": Order.objects.all().filter(status="Commander", paid=True)},
+    )
 
 
 @staff_member_required()
@@ -36,7 +42,7 @@ def add_product(request):
         price = request.POST.get("product_price")
         description = request.POST.get("product_description")
         category = Category.objects.get(name=request.POST.get("product_category"))
-        slug = name.replace(" ", "-")
+        slug = slugify(name)
         rarity = request.POST.get("product_rarity")
         edition = request.POST.get("product_edition")
         image = request.FILES.get("product_image")
@@ -88,7 +94,7 @@ def edit_product(request, product_id):
         product.price = request.POST.get("product_price")
         product.description = request.POST.get("product_description")
         product.category = Category.objects.get(id=request.POST.get("product_category"))
-        product.slug = product.name.replace(" ", "-")
+        product.slug = slugify(product.name)
         product.rarity = request.POST.get("product_rarity")
         product.edition = request.POST.get("product_edition")
         product.image = request.FILES.get("product_image")
@@ -115,3 +121,43 @@ def delete_product(product_id):
     product.delete()
 
     return redirect("dashboard")
+
+
+@staff_member_required()
+def order(request):
+    orders = Order.objects.all()
+    query = request.GET.get("query")
+
+    if query:
+        orders = orders.filter(
+            Q(id__icontains=query)
+            | Q(user__first_name__icontains=query)
+            | Q(user__last_name__icontains=query)
+            | Q(user__email__icontains=query)
+        ).distinct()
+
+    paginator = Paginator(orders, 50)
+    page = request.GET.get("page")
+    orders = paginator.get_page(page)
+
+    return render(request, "dashboard/order.html", {"orders": orders, "page": orders})
+
+
+@staff_member_required()
+def edit_order(request, order_id):
+    orders = get_object_or_404(Order, pk=order_id)
+
+    if request.method == "POST":
+        orders.status = request.POST.get("order_status")
+        orders.save()
+        
+        return redirect("order")
+    else:
+        return render(
+            request,
+            "dashboard/edit_order.html",
+            {
+                "order": orders,
+                "status": Order.STATUS_CHOICES,
+            },
+        )
